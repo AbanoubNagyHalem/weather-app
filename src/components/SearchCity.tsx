@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { CityData, CityDataAPIResponse } from "../types/CityData";
 
-const SearchCity = () => {
-  const [query, setQuery] = useState("");
+type Props = {
+  handleAddCity: (city: CityData) => void;
+};
+
+const SearchCity = ({ handleAddCity }: Props) => {
   const [results, setResults] = useState<CityData[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
-    setQuery(newQuery);
 
     if (newQuery.length < 3) {
       setResults([]);
@@ -21,22 +24,36 @@ const SearchCity = () => {
     setResults(data.results || []);
   };
 
+  const handleAddCityClick = (city: CityData) => {
+    handleAddCity(city);
+    setResults([]);
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+  };
+
   return (
     <div>
       <input
         className="w-full p-2 border border-gray-300 rounded-md"
         type="text"
         placeholder="Search for a city..."
-        value={query}
         onChange={handleSearch}
+        ref={inputRef}
       />
-      <div className="flex flex-col gap-2">
-        {results.map((result) => (
-          <div key={result.id}>
-            {result.name}, {result.country}
-          </div>
-        ))}
-      </div>
+      {results.length > 0 && (
+        <div className="flex flex-col gap-2 border border-gray-300 rounded-md p-2">
+          {results.map((result) => (
+            <div
+              onClick={() => handleAddCityClick(result)}
+              key={result.id}
+              className="hover:bg-gray-100 cursor-pointer p-1 rounded-md"
+            >
+              {result.name}, {result.country}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
