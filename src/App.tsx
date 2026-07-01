@@ -15,9 +15,11 @@ function App() {
     <div className="flex flex-col px-4 py-6">
       <Header />
       <SearchCity handleAddCity={handleAddCity} />
-      {cities.map((city) => (
-        <WeatherCard key={city.id} city={city} />
-      ))}
+      <div className="grid grid-cols-2 gap-4">
+        {cities.map((city) => (
+          <WeatherCard key={city.id} city={city} />
+        ))}
+      </div>
     </div>
   );
 }

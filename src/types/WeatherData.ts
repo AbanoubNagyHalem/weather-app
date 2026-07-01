@@ -1,13 +1,3 @@
-type CurrentWeatherUnits = {
-  time: string;
-  interval: string;
-  temperature: string;
-  windspeed: string;
-  winddirection: string;
-  is_day: string;
-  weathercode: string;
-};
-
 type CurrentWeather = {
   time: string;
   interval: number;
@@ -16,6 +6,18 @@ type CurrentWeather = {
   winddirection: number;
   is_day: number;
   weathercode: number;
+};
+
+
+
+type CurrentWeatherUnits = {
+  time: string;
+  interval: string;
+  temperature: string;
+  windspeed: string;
+  winddirection: string;
+  is_day: string;
+  weathercode: string;
 };
 
 export type WeatherDataAPIResponse = {
