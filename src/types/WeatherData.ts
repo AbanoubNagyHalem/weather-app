@@ -8,8 +8,6 @@ type CurrentWeather = {
   weathercode: number;
 };
 
-
-
 type CurrentWeatherUnits = {
   time: string;
   interval: string;
